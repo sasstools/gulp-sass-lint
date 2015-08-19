@@ -41,7 +41,7 @@ var sassLint = function (options) {
   return compile;
 }
 
-sassLint.formatResults = function () {
+sassLint.format = function () {
   var compile = through.obj(function (file, encoding, cb) {
     if (file.isNull()) {
       return cb();
@@ -67,7 +67,11 @@ sassLint.failOnError = function () {
       this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
       return cb();
     }
-    lint.failOnError(file.sassLint);
+
+    if (file.sassLint[0].errorCount > 0) {
+      this.emit('error', new PluginError(PLUGIN_NAME, file.sassLint[0].errorCount + ' errors detected in ' + file.relative));
+      return cb();
+    }
 
     this.push(file);
     cb();
