@@ -8,12 +8,16 @@ $primary: red;
   content: 'An ID';
 }
 
+.bad { color: red; background: green; }
+
 .foo, .waldo {
   @extend %bar;
   $secondary:green;
-  color : red;
+
+  color :red;
   font-size: 0.4em;
-  box-shadow: .5em .5em black, 0.1em .4em red;
+  box-shadow: .5em .5em black,
+	      0.1em .4em red; text-shadow: 1px 1px black;
   background: red,blue;
 
   .bar {
@@ -31,4 +35,39 @@ $primary: red;
 
 .bar span #quz {
   content: 'Another ID';
+}
+
+.foo {
+  content: 'bar';
+
+  .baz {
+    content: 'qux';
+
+    .qux {
+      content: 'waldo';
+    }
+
+    .waldo, div {
+      content: 'where';
+
+      .fail,
+      #cats {
+	content: 'blog';
+
+	&:hover {
+	  content: 'hover';
+	}
+      }
+    }
+  }
+
+  .nan {
+    .boo {
+      content: 'nan';
+
+      .fail {
+	content: 'blog';
+      }
+    }
+  }
 }

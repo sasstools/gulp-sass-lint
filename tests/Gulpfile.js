@@ -6,6 +6,6 @@ var gulp = require('gulp'),
 gulp.task('default', function () {
   gulp.src('sass/**/*.s+(a|c)ss')
     .pipe(lint())
-    .pipe(lint.formatResults())
+    .pipe(lint.format())
     .pipe(lint.failOnError())
 });
