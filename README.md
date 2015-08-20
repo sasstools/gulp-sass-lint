@@ -8,12 +8,12 @@
 'use strict';
 
 var gulp = require('gulp'),
-    lint = require('../index');
+    sassLint = require('gulp-sass-lint');
 
 gulp.task('default', function () {
   gulp.src('sass/**/*.s+(a|c)ss')
-    .pipe(lint())
-    .pipe(lint.formatResults())
-    .pipe(lint.failOnError())
+    .pipe(sassLint())
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError())
 });
 ```
