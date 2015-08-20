@@ -32,7 +32,7 @@ var sassLint = function (options) {
     file.sassLint = [lint.lintText({
       'text': file.contents,
       'format': path.extname(file.path).replace('.', ''),
-      'filename': file.path
+      'filename': path.relative(process.cwd(), file.path)
     }, options)];
 
     this.push(file);
@@ -50,7 +50,7 @@ sassLint.format = function () {
       this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
       return cb();
     }
-    console.log(lint.formatResults(file.sassLint));
+    console.log(lint.format(file.sassLint));
 
     this.push(file);
     cb();
