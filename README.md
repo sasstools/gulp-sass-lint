@@ -2,7 +2,15 @@
 
 [Gulp](http://gulpjs.com/) plugin for [Sass Lint](https://github.com/sasstools/sass-lint/tree/playground).
 
-### Sample
+## Install
+
+```
+npm install gulp-sass-lint@{{version-number}}
+```
+
+where `{{version number}}` is the version number in [`package.json`](https://github.com/sasstools/gulp-sass-lint/blob/master/package.json#L3)
+
+## Sample
 
 ```javascript
 'use strict';
