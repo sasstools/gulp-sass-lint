@@ -1,16 +1,14 @@
 # Gulp Sass Lint [![npm version](https://badge.fury.io/js/gulp-sass-lint.svg)](http://badge.fury.io/js/gulp-sass-lint)
 
-[Gulp](http://gulpjs.com/) plugin for [Sass Lint](https://github.com/sasstools/sass-lint/tree/playground).
+[Gulp](http://gulpjs.com/) plugin for [Sass Lint](https://github.com/sasstools/sass-lint).
 
 ## Install
 
 ```
-npm install gulp-sass-lint@{{version-number}}
+npm install gulp-sass-lint --save-dev
 ```
 
-where `{{version number}}` is the version number in [`package.json`](https://github.com/sasstools/gulp-sass-lint/blob/master/package.json#L3)
-
-## Sample
+## Using
 
 ```javascript
 'use strict';
