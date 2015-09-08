@@ -76,7 +76,7 @@ sassLint.failOnError = function () {
 
     this.push(file);
     cb();
-  }, function () {
+  }, function (cb) {
     var errorMessage;
 
     if (filesWithErrors.length > 0) {
@@ -86,6 +86,8 @@ sassLint.failOnError = function () {
 
       this.emit('error', new PluginError(PLUGIN_NAME, errorMessage));
     }
+
+    cb();
   });
 
   return compile;
