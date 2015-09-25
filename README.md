@@ -23,3 +23,9 @@ gulp.task('default', function () {
     .pipe(sassLint.failOnError())
 });
 ```
+## Specify config file
+
+```
+  // Using 'sass-lint.yml' in cwd
+  .pipe(sassLint({}, 'sass-lint.yml'))
+```
