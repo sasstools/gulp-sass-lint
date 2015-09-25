@@ -19,7 +19,7 @@ var through = require('through2'),
 //////////////////////////////
 // Export
 //////////////////////////////
-var sassLint = function (options) {
+var sassLint = function (options, configPath) {
   options = options || {};
   var compile = through.obj(function (file, encoding, cb) {
     if (file.isNull()) {
@@ -33,7 +33,7 @@ var sassLint = function (options) {
       'text': file.contents,
       'format': path.extname(file.path).replace('.', ''),
       'filename': path.relative(process.cwd(), file.path)
-    }, options)];
+    }, options, configPath)];
 
     this.push(file);
     cb();
