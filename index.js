@@ -21,6 +21,7 @@ var through = require('through2'),
 //////////////////////////////
 var sassLint = function (options) {
   options = options || {};
+  var configPath = options.hasOwnProperty('configPath') ? options.configPath : null;
   var compile = through.obj(function (file, encoding, cb) {
     if (file.isNull()) {
       return cb();
@@ -33,7 +34,7 @@ var sassLint = function (options) {
       'text': file.contents,
       'format': path.extname(file.path).replace('.', ''),
       'filename': path.relative(process.cwd(), file.path)
-    }, options)];
+    }, options, configPath)];
 
     this.push(file);
     cb();
