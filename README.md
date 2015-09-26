@@ -27,5 +27,5 @@ gulp.task('default', function () {
 
 ```
   // Using 'sass-lint.yml' in cwd
-  .pipe(sassLint({}, 'sass-lint.yml'))
+  .pipe(sassLint({configPath: 'sass-lint.yml'}))
 ```
