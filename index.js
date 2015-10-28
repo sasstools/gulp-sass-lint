@@ -51,7 +51,11 @@ sassLint.format = function () {
       return cb();
     }
 
-    if (file.sassLint[0].errorCount > 0 || file.sassLint[0].warningCount > 0) {
+    var hasMessagesToLog = file.sassLint.some(function(f) {
+        return f.warningCount + f.errorCount > 0;
+    });
+
+    if (hasMessagesToLog) {
       console.log(lint.format(file.sassLint));
     }
 
