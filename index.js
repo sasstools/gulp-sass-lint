@@ -66,25 +66,38 @@ sassLint.format = function () {
 }
 
 sassLint.failOnError = function () {
-  var compile = through.obj(function (file, encoding, cb) {
+  var filesWithErrors = [];
+  var compile = through({objectMode: true}, function (file, encoding, cb) {
     if (file.isNull()) {
       return cb();
     }
+
     if (file.isStream()) {
       this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
       return cb();
     }
 
     if (file.sassLint[0].errorCount > 0) {
-      this.emit('error', new PluginError(PLUGIN_NAME, file.sassLint[0].errorCount + ' errors detected in ' + file.relative));
-      return cb();
+      filesWithErrors.push(file);
     }
 
     this.push(file);
     cb();
+  }, function (cb) {
+    var errorMessage;
+
+    if (filesWithErrors.length > 0) {
+      errorMessage = filesWithErrors.map(function (file) {
+        return file.sassLint[0].errorCount + ' errors detected in ' + file.relative
+      }).join('\n');
+
+      this.emit('error', new PluginError(PLUGIN_NAME, errorMessage));
+    }
+
+    cb();
   });
+
   return compile;
 }
-
 
 module.exports = sassLint;
