@@ -22,6 +22,7 @@ var through = require('through2'),
 var sassLint = function (options) {
   options = options || {};
   var compile = through.obj(function (file, encoding, cb) {
+    var config;
     if (file.isNull()) {
       return cb();
     }
@@ -29,11 +30,16 @@ var sassLint = function (options) {
       this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
       return cb();
     }
+
+    config = lint.getConfig(options);
+
+    file.sassConfig = config;
+
     file.sassLint = [lint.lintText({
       'text': file.contents,
       'format': path.extname(file.path).replace('.', ''),
       'filename': path.relative(process.cwd(), file.path)
-    }, options)];
+    }, config)];
 
     this.push(file);
     cb();
