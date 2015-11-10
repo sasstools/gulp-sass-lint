@@ -56,7 +56,8 @@ sassLint.format = function () {
       this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
       return cb();
     }
-    console.log(lint.format(file.sassLint));
+
+    lint.outputResults(file.sassLint, file.sassConfig);
 
     this.push(file);
     cb();
