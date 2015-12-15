@@ -35,13 +35,18 @@ var sassLint = function (options) {
 
     file.sassConfig = config;
 
-    file.sassLint = [lint.lintText({
-      'text': file.contents,
-      'format': path.extname(file.path).replace('.', ''),
-      'filename': path.relative(process.cwd(), file.path)
-    }, config)];
+    try {
+      file.sassLint = [lint.lintText({
+        'text': file.contents,
+        'format': path.extname(file.path).replace('.', ''),
+        'filename': path.relative(process.cwd(), file.path)
+      }, config)];
 
-    this.push(file);
+      this.push(file)
+    } catch(e) {
+      this.emit('error', e);
+    }
+    
     cb();
   });
   return compile;
