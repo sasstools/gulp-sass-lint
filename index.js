@@ -41,12 +41,11 @@ var sassLint = function (options) {
         'format': path.extname(file.path).replace('.', ''),
         'filename': path.relative(process.cwd(), file.path)
       }, config)];
-
-      this.push(file)
     } catch(e) {
-      this.emit('error', e);
+      this.emit('error', new PluginError(PLUGIN_NAME, e.message));
     }
     
+    this.push(file);
     cb();
   });
   return compile;
