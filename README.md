@@ -18,7 +18,11 @@ var gulp = require('gulp'),
 
 gulp.task('default', function () {
   gulp.src('sass/**/*.s+(a|c)ss')
-    .pipe(sassLint())
+    .pipe(sassLint({
+		options: {
+			['config-file']: 'config/.sass-lint.yml',
+		}
+	}))
     .pipe(sassLint.format())
     .pipe(sassLint.failOnError())
 });
