@@ -1,0 +1,4 @@
+options:
+  formatter: stylish
+rules:
+  one-declaration-per-line: 1

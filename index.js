@@ -19,8 +19,9 @@ var through = require('through2'),
 //////////////////////////////
 // Export
 //////////////////////////////
-var sassLint = function (options) {
+var sassLint = function (configFile, options) {
   options = options || {};
+  configFile = configFile || '';
   var compile = through.obj(function (file, encoding, cb) {
     var config;
     if (file.isNull()) {
@@ -31,7 +32,7 @@ var sassLint = function (options) {
       return cb();
     }
 
-    config = lint.getConfig(options);
+    config = lint.getConfig(options, configFile);
 
     file.sassConfig = config;
 
