@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-lint",
-  "version": "1.1.2",
+  "version": "1.2.1",
   "description": "Gulp plugin for Sass Lint",
   "main": "index.js",
   "scripts": {
