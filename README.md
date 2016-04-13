@@ -36,7 +36,7 @@ var gulp = require('gulp'),
 
 gulp.task('default', function () {
   gulp.src('sass/**/*.s+(a|c)ss')
-    .pipe(sassLint('path/to/custom/config/file'))
+    .pipe(sassLint({}, 'path/to/custom/config/file'))
     .pipe(sassLint.format())
     .pipe(sassLint.failOnError())
 });

@@ -19,7 +19,7 @@ var through = require('through2'),
 //////////////////////////////
 // Export
 //////////////////////////////
-var sassLint = function (configFile, options) {
+var sassLint = function (options, configFile) {
   options = options || {};
   configFile = configFile || '';
   var compile = through.obj(function (file, encoding, cb) {

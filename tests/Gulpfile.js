@@ -17,7 +17,7 @@ gulp.task('default', function () {
  */
 gulp.task('testCustomConfigLocation', function () {
   gulp.src('sass/custom-config.scss')
-    .pipe(lint('./config/sasslint-config.yml'))
+    .pipe(lint({}, './config/sasslint-config.yml'))
     .pipe(lint.format())
     .pipe(lint.failOnError())
 });
