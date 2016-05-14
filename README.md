@@ -100,6 +100,36 @@ You can pass the path to a custom config file via the `configFile` option. The p
 }
 ```
 
+### Example
+
+The following highlights all of the above options in use
+
+```javascript
+
+'use strict';
+
+var gulp = require('gulp'),
+    sassLint = require('gulp-sass-lint');
+
+gulp.task('default', function () {
+  gulp.src('sass/**/*.s+(a|c)ss')
+    .pipe(sassLint({
+      options: {
+        formatter: 'stylish'
+        'merge-default-rules': false
+      },
+      files: {ignore: '**/*.scss'},
+      rules: {
+        'no-ids': 1,
+        'no-mergeable-selectors': 0
+      },
+      config: 'config/other/.sass-lint.yml'
+    }))
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError())
+});
+
+```
 ---
 
 ### sassLint.format()
