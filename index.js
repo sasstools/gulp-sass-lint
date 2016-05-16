@@ -4,11 +4,13 @@
 //
 // Lints Sass files
 //////////////////////////////
+
 'use strict';
 
 //////////////////////////////
 // Variables
 //////////////////////////////
+
 var through = require('through2'),
     gutil = require('gulp-util'),
     lint = require('sass-lint'),
@@ -19,8 +21,11 @@ var through = require('through2'),
 //////////////////////////////
 // Export
 //////////////////////////////
+
 var sassLint = function (options) {
-  options = options || {};
+  var userOptions = options || {};
+  var configFile = userOptions.configFile;
+
   var compile = through.obj(function (file, encoding, cb) {
     var config;
     if (file.isNull()) {
@@ -31,20 +36,24 @@ var sassLint = function (options) {
       return cb();
     }
 
-    config = lint.getConfig(options);
+    // load our config from sassLint and the user provided options if available
+    config = lint.getConfig(userOptions, configFile);
+    // save the config file within the file object for access when this file is piped around
+    file.userOptions = userOptions;
+    file.configFile = configFile;
 
-    file.sassConfig = config;
-
+    // lint the file and pass the user defined options and config path to sass lint to handle
     try {
-      file.sassLint = [lint.lintText({
-        'text': file.contents,
-        'format': path.extname(file.path).replace('.', ''),
-        'filename': path.relative(process.cwd(), file.path)
-      }, config)];
+      file.sassLint = [
+        lint.lintFileText({
+          'text': file.contents,
+          'format': path.extname(file.path).replace('.', ''),
+          'filename': path.relative(process.cwd(), file.path)
+        }, userOptions, configFile)];
     } catch(e) {
       this.emit('error', new PluginError(PLUGIN_NAME, e.message));
     }
-    
+
     this.push(file);
     cb();
   });
