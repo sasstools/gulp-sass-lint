@@ -90,16 +90,6 @@ You can define which rules you would like to use here and set a severity too. Fo
 }
 ```
 
-#### options.configFile
-
-You can pass the path to a custom config file via the `configFile` option. The path will be relative to where you're running gulp from.
-
-```javascript
-{
-  configFile: 'app/config/.my-config.yml'
-}
-```
-
 ### Example
 
 The following highlights all of the above options in use
