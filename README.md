@@ -40,7 +40,8 @@ You can find out more about the specific SassLint options from the [SassLint Doc
 {
   options: {
     formatter: 'stylish',
-    'merge-default-rules': false
+    'merge-default-rules': false,
+    ['config-file']: 'config/.sass-lint.yml'
   }
 }
 ```
@@ -49,7 +50,7 @@ By default SassLint includes it's own configuration file, if you provide one it 
 
 `options > config file > SassLint default included config`
 
-You can disable this behaviour by setting `merge-default-rules` to false within the `options.options` object that you pass to `gulp-sass-lint` or you can include it in your config file options that you can pass into `gulp-sass-lint` with `options.configFile`.
+You can disable this behaviour by setting `merge-default-rules` to false within the `options.options` object that you pass to `gulp-sass-lint` or you can include it in your config file options that you can pass into `gulp-sass-lint` with `options.['config-file']`.
 
 More info and examples can be found within the SassLint [docs](https://github.com/sasstools/sass-lint/blob/master/docs/options/merge-default-rules.md)
 
