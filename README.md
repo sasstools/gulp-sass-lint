@@ -123,7 +123,7 @@ gulp.task('default', function () {
         'no-ids': 1,
         'no-mergeable-selectors': 0
       },
-      config: 'config/other/.sass-lint.yml'
+      configFile: 'config/other/.sass-lint.yml'
     }))
     .pipe(sassLint.format())
     .pipe(sassLint.failOnError())
