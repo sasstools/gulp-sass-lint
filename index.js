@@ -70,7 +70,7 @@ sassLint.format = function () {
       return cb();
     }
 
-    lint.outputResults(file.sassLint, file.sassConfig);
+    lint.outputResults(file.sassLint, file.userOptions);
 
     this.push(file);
     cb();
