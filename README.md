@@ -132,9 +132,30 @@ gulp.task('default', function () {
 ```
 ---
 
-### sassLint.format()
+### sassLint.format(writable)
 
-Formats the results dependent on your config file or the options you provided to the sassLint task above. The default format is `stylish` but you can choose any of the others that SassLint provides, see the [docs](https://github.com/sasstools/sass-lint/blob/master/docs/options/formatter.md). You can also choose to output to a file from within the options you provide or your config file. See the [output-file docs](https://github.com/sasstools/sass-lint/blob/master/docs/options/output-file.md)
+Formats the results dependent on your config file or the options you provided to the sassLint task above. The default format is `stylish` but you can choose any of the others that SassLint provides, see the [docs](https://github.com/sasstools/sass-lint/blob/master/docs/options/formatter.md).
+
+You can also choose to output to a file from within the options you provide or your config file. See the [output-file docs](https://github.com/sasstools/sass-lint/blob/master/docs/options/output-file.md)
+
+```javascript
+gulp.task('lint_sass_jenkins', function () {
+    var file = fs.createWriteStream('reports/lint_sass.xml');
+    var stream = gulp.src('public/sass/**/*.scss')
+        .pipe(sassLint({
+            options: {
+                configFile: '.sass-lint.yml',
+                formatter: 'checkstyle',
+                'outout-file': 'reports/lint_sass.xml'
+            }
+        }))
+        .pipe(sassLint.format(file));
+    stream.on('finish', function() {
+        file.end();
+    });
+    return stream;
+});
+```
 
 ---
 
