@@ -145,8 +145,7 @@ gulp.task('lint_sass_jenkins', function () {
         .pipe(sassLint({
             options: {
                 configFile: '.sass-lint.yml',
-                formatter: 'checkstyle',
-                'outout-file': 'reports/lint_sass.xml'
+                formatter: 'checkstyle'
             }
         }))
         .pipe(sassLint.format(file));
