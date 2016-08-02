@@ -78,7 +78,7 @@ sassLint.format = function () {
   return compile;
 }
 
-sassLint.failOnError = function () {
+sassLint.failOnError = function (failCb) {
   var filesWithErrors = [];
   var compile = through({objectMode: true}, function (file, encoding, cb) {
     if (file.isNull()) {
@@ -104,7 +104,11 @@ sassLint.failOnError = function () {
         return file.sassLint[0].errorCount + ' errors detected in ' + file.relative
       }).join('\n');
 
-      this.emit('error', new PluginError(PLUGIN_NAME, errorMessage));
+      if (failCb !== undefined) {
+        failCb(errorMessage);
+      } else {
+        this.emit('error', new PluginError(PLUGIN_NAME, errorMessage));
+      }
     }
 
     cb();
