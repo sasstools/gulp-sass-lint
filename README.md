@@ -115,7 +115,7 @@ gulp.task('default', function () {
   return gulp.src('sass/**/*.s+(a|c)ss')
     .pipe(sassLint({
       options: {
-        formatter: 'stylish'
+        formatter: 'stylish',
         'merge-default-rules': false
       },
       files: {ignore: '**/*.scss'},
