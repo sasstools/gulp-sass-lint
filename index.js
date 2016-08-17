@@ -27,7 +27,7 @@ var sassLint = function (options) {
   var configFile = userOptions.configFile;
 
   var compile = through.obj(function (file, encoding, cb) {
-    var config;
+
     if (file.isNull()) {
       return cb();
     }
@@ -37,7 +37,7 @@ var sassLint = function (options) {
     }
 
     // load our config from sassLint and the user provided options if available
-    config = lint.getConfig(userOptions, configFile);
+    file.sassConfig = lint.getConfig(userOptions, configFile);
     // save the config file within the file object for access when this file is piped around
     file.userOptions = userOptions;
     file.configFile = configFile;
