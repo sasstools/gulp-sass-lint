@@ -36,8 +36,6 @@ var sassLint = function (options) {
       return cb();
     }
 
-    // load our config from sassLint and the user provided options if available
-    config = lint.getConfig(userOptions, configFile);
     // save the config file within the file object for access when this file is piped around
     file.userOptions = userOptions;
     file.configFile = configFile;
@@ -60,7 +58,7 @@ var sassLint = function (options) {
   return compile;
 }
 
-sassLint.format = function () {
+sassLint.format = function (writable) {
   var compile = through.obj(function (file, encoding, cb) {
     if (file.isNull()) {
       return cb();
@@ -70,7 +68,13 @@ sassLint.format = function () {
       return cb();
     }
 
-    lint.outputResults(file.sassLint, file.sassConfig);
+    if (writable) {
+      var result = lint.format(file.sassLint, file.userOptions);
+      writable.write(result);
+    }
+    else {
+      lint.outputResults(file.sassLint, file.sassConfig);
+    }
 
     this.push(file);
     cb();
