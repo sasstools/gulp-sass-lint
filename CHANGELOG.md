@@ -1,0 +1,15 @@
+# gulp-sass-lint Changelog
+
+## v1.3.0
+
+**November 7th, 2016**
+
+**Fixes**
+
+* Fixed an issue with a user config file being ignored
+* Fixed an issue with a format options being ignored
+
+**Updates**
+
+* Updated the way you can output results files from gulp-sass-lint, check the [README.md](README.md) for more information
+* Updated to sass-lint 1.10.0 which adds the ability to disable linters via source comments
