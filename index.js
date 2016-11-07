@@ -60,7 +60,7 @@ var sassLint = function (options) {
   return compile;
 }
 
-sassLint.format = function () {
+sassLint.format = function (writable) {
   var compile = through.obj(function (file, encoding, cb) {
     if (file.isNull()) {
       return cb();
@@ -70,7 +70,13 @@ sassLint.format = function () {
       return cb();
     }
 
-    lint.outputResults(file.sassLint, file.userOptions);
+    if (writable) {
+      var result = lint.format(file.sassLint, file.userOptions, file.configFile);
+      writable.write(result);
+    }
+    else {
+      lint.outputResults(file.sassLint, file.userOptions, file.configFile);
+    }
 
     this.push(file);
     cb();
