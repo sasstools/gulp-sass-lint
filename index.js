@@ -42,6 +42,12 @@ var sassLint = function (options) {
     file.userOptions = userOptions;
     file.configFile = configFile;
 
+    // function that can modify all rules, including the default ones
+    if (options.updateRules) {
+      userOptions.rules = options.updateRules(file.sassConfig.rules);
+      delete options.updateRules;
+    }
+
     // lint the file and pass the user defined options and config path to sass lint to handle
     try {
       file.sassLint = [
