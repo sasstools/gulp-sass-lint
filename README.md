@@ -161,3 +161,19 @@ gulp.task('lint_sass_jenkins', function () {
 ### sassLint.failOnError()
 
 Fails the task and emits a gulp error when all files have been linted if an error has been detected (rules set to severity 2).
+
+### sassLint.failOnWarning()
+
+Works as `failOnError()`, but also throws an error if sass contains warnings. This is very useful for CI environments, where you want to prevent a merge if you have warnings. A gulp task may look like:
+
+```
+gulp.task('sasslint', function () {
+  gulp.src('sass/*.s+(a|c)ss')
+    .pipe(sassLint())
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError())
+    .pipe(sassLint.failOnWarning())
+});
+```
+
+Gulp will return an exit code for errors and warnings then.
