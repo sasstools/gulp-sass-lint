@@ -84,7 +84,8 @@ sassLint.format = function (writable) {
   return compile;
 }
 
-sassLint.failOnError = function () {
+sassLint.failOnLevel = function (warnlevel) {
+  var level = warnlevel || 'error'
   var filesWithErrors = [];
   var compile = through({objectMode: true}, function (file, encoding, cb) {
     if (file.isNull()) {
@@ -96,7 +97,7 @@ sassLint.failOnError = function () {
       return cb();
     }
 
-    if (file.sassLint[0].errorCount > 0) {
+    if (file.sassLint[0][level + 'Count'] > 0) {
       filesWithErrors.push(file);
     }
 
@@ -107,7 +108,7 @@ sassLint.failOnError = function () {
 
     if (filesWithErrors.length > 0) {
       errorMessage = filesWithErrors.map(function (file) {
-        return file.sassLint[0].errorCount + ' errors detected in ' + file.relative
+        return file.sassLint[0][level + 'Count'] + ' ' + level + 's detected in ' + file.relative
       }).join('\n');
 
       this.emit('error', new PluginError(PLUGIN_NAME, errorMessage));
@@ -117,6 +118,14 @@ sassLint.failOnError = function () {
   });
 
   return compile;
+}
+
+sassLint.failOnError = function () {
+  return this.failOnLevel('error')
+}
+
+sassLint.failOnWarning = function () {
+  return this.failOnLevel('warning')
 }
 
 module.exports = sassLint;
