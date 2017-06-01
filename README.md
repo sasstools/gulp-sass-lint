@@ -168,7 +168,7 @@ Fails the task and emits a gulp error when all files have been linted if an erro
 
 You can use [gulp-cached](https://github.com/contra/gulp-cached) to lint only changed files.
 
-```
+```javascript
 var sassLint = require('gulp-sass-lint'),
     cache    = require('gulp-cached');
 
