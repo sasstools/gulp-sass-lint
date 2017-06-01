@@ -164,9 +164,9 @@ Fails the task and emits a gulp error when all files have been linted if an erro
 
 ---
 
-### Lint only modified files
+### Lint only changed files
 
-You can use gulp-cached to lint only changed files.
+You can use [gulp-cached](https://github.com/contra/gulp-cached) to lint only changed files.
 
 ```
 var sassLint = require('gulp-sass-lint'),
