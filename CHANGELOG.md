@@ -1,5 +1,9 @@
 # gulp-sass-lint Changelog
 
+## v1.3.3
+
+- Update sass-lint to 1.11.0
+
 ## v1.3.1
 
 **Novemeber 7th, 2016**
