@@ -161,3 +161,27 @@ gulp.task('lint_sass_jenkins', function () {
 ### sassLint.failOnError()
 
 Fails the task and emits a gulp error when all files have been linted if an error has been detected (rules set to severity 2).
+
+---
+
+### Lint only changed files
+
+You can use [gulp-cached](https://github.com/contra/gulp-cached) to lint only changed files.
+
+```javascript
+var sassLint = require('gulp-sass-lint'),
+    cache    = require('gulp-cached');
+
+gulp.task('sass-lint', function() {
+  return gulp.src(['scss/*.scss', 'scss/**/*.scss'])
+    .pipe(cache('sassLint'))
+    .pipe(sassLint())
+    .pipe(sassLint.format())
+    .pipe(sassLint.failOnError());
+});
+
+gulp.task('watch', function() {
+  gulp.watch(['scss/*.scss', 'scss/**/*.scss'], ['sass-lint']);
+});
+```
+
