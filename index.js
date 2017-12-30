@@ -12,10 +12,9 @@
 //////////////////////////////
 
 var through = require('through2'),
-    gutil = require('gulp-util'),
     lint = require('sass-lint'),
     path = require('path'),
-    PluginError = gutil.PluginError,
+    PluginError = require('plugin-error'),
     PLUGIN_NAME = 'sass-lint';
 
 //////////////////////////////
