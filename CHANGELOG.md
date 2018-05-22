@@ -1,5 +1,8 @@
 # gulp-sass-lint Changelog
 
+## v1.4.0
+- Drop dependency on deprecated `gulp-util`
+
 ## v1.3.4
 - Update sass-lint to 1.12.0
 
