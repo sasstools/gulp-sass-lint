@@ -117,8 +117,8 @@ sassLint.failOnError = function () {
       });
     }
 
-    if (filesWithWarnings.length > 0 && !isNaN(filesWithWarnings[0].sassConfig.options['max-warning'])) {
-      maxWarningLimit = filesWithWarnings[0].sassConfig.options['max-warning'];
+    if (filesWithWarnings.length > 0 && !isNaN(filesWithWarnings[0].sassConfig.options['max-warnings'])) {
+      maxWarningLimit = filesWithWarnings[0].sassConfig.options['max-warnings'];
 
       warningCount = filesWithWarnings.reduce(function (accumulator, file) {
           return accumulator + file.sassLint[0].warningCount;
