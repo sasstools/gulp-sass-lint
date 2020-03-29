@@ -1,0 +1,9 @@
+sudo: false
+
+language: node_js
+
+node_js:
+  - current
+  - 12
+  - 10
+  - 8
