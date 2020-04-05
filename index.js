@@ -85,6 +85,7 @@ sassLint.format = function (writable) {
 
 sassLint.failOnError = function () {
   var filesWithErrors = [];
+  var filesWithWarnings = [];
   var compile = through({objectMode: true}, function (file, encoding, cb) {
     if (file.isNull()) {
       return cb();
@@ -99,17 +100,37 @@ sassLint.failOnError = function () {
       filesWithErrors.push(file);
     }
 
+    if (file.sassLint[0].warningCount > 0) {
+      filesWithWarnings.push(file);
+    }
+
     this.push(file);
     cb();
   }, function (cb) {
-    var errorMessage;
+    var errorMessage = [],
+        warningCount,
+        maxWarningLimit;
 
     if (filesWithErrors.length > 0) {
       errorMessage = filesWithErrors.map(function (file) {
         return file.sassLint[0].errorCount + ' errors detected in ' + file.relative
-      }).join('\n');
+      });
+    }
 
-      this.emit('error', new PluginError(PLUGIN_NAME, errorMessage));
+    if (filesWithWarnings.length > 0 && !isNaN(filesWithWarnings[0].sassConfig.options['max-warnings'])) {
+      maxWarningLimit = filesWithWarnings[0].sassConfig.options['max-warnings'];
+
+      warningCount = filesWithWarnings.reduce(function (accumulator, file) {
+          return accumulator + file.sassLint[0].warningCount;
+      }, 0);
+
+      if (warningCount > maxWarningLimit) {
+        errorMessage.push('Number of warnings (' + warningCount + ') exceeds the allowed maximum of ' + maxWarningLimit)
+      }
+    }
+
+    if (errorMessage.length > 0) {
+        this.emit('error', new PluginError(PLUGIN_NAME, errorMessage.join('\n')));
     }
 
     cb();
