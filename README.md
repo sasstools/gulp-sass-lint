@@ -100,6 +100,34 @@ You can pass the path to a custom config file via the `configFile` option. The p
 }
 ```
 
+#### option.updateRules
+
+You can pass a function that can process all existing rules (user defined ones
+as well as the defaults that come from `sass-lint`).
+
+```javascript
+  // ...
+  .pipe(sassLint({
+    configFile: '.sass-lint.yml',
+    // all enabled rules will have the error severity
+    updateRules: (rules) => {
+      const isActiveRule = (x) => (typeof x === 'number' && x !== 0);
+
+      Object.keys(rules).forEach(r => {
+        if (isActiveRule(rules[r])) {
+          rules[r] = 2;
+        } else if (Array.isArray(rules[r])) {
+          if (isActiveRule(rules[r][0])) {
+            rules[r][0] = 2;
+          }
+        }
+      });
+
+      return rules;
+    }
+  }))
+```
+
 ### Example
 
 The following highlights all of the above options in use
