@@ -105,9 +105,14 @@ sassLint.failOnError = function () {
     var errorMessage;
 
     if (filesWithErrors.length > 0) {
-      errorMessage = filesWithErrors.map(function (file) {
-        return file.sassLint[0].errorCount + ' errors detected in ' + file.relative
-      }).join('\n');
+      const indent = '    ';
+      const newline = `\n${indent.repeat(2)}- `;
+      errorMessage = filesWithErrors.map(file => {
+        const count = file.sassLint[0].errorCount;
+        return `${count} error${count > 1 ? 's' : ''} detected in ` +
+          file.relative + newline +
+          file.sassLint[0].messages.map(m => m.message).join(newline);
+      }).join(`\n${indent}`);
 
       this.emit('error', new PluginError(PLUGIN_NAME, errorMessage));
     }
